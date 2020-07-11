@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: True
+  tasks: 
+    - name: Install Package
+      yum:
+        name: "{{item.name}}"
+        state: "{{item.state}}"
+      loop: 
+        - {name: 'httpd', state: 'present'}
+    - name: Start Service
+      service:
+        name: httpd
+        state: started
+        enabled: True
+    - name: Deploy Static Page
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+      notify:
+         - restart server
+    - name: change port number
+      lineinfile:
+         path: /etc/httpd/conf/httpd.conf
+         regexp: '^Listen '
+         line: 'Listen 8080'        
+      notify:
+         - restart server
+           
+  handlers:
+    - name: restart server
+      service:
+        name: httpd
+        state: restarted

@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: True
+  tasks: 
+    - name: Install Packages
+      debug:
+        msg: Installing Package
+      tags: 
+        - install
+
+    - name: Manage Config File
+      debug: 
+        msg: Updating Config File
+      tags: 
+        -  manage
+
+    - name: Deploy the Code
+      debug: 
+        msg: Deploying the Code
+      tags: 
+        - deploy

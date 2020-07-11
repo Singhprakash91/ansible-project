@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: True
+  serial: "50%"
+  tasks: 
+    - name: Install Packages
+      debug:
+        msg: Installing Package
+      tags: 
+        - install
+
+    - name: Manage Config File
+      debug: 
+        msg: Updating Config File
+      tags: 
+        -  manage
+
+    - name: Deploy the Code
+      debug: 
+        msg: Deploying the Code
+      tags: 
+        - deploy
+
+- name: Import tags.yml
+  import_playbook: tags.yml

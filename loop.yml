@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: True
+  tasks: 
+    - name: Install Packages (httpd,nginx,git)
+      yum:
+        name: "{{item}}"
+        state: present
+      loop:
+        - httpd
+        - git
+        - nginx

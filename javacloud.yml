@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: True
+  tasks: 
+    - name: Install Apache Server
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start Server
+      service:
+        name: httpd
+        state: started
+        enabled: True
+    - name: Deploay Satatic website
+      git:
+        repo: https://github.com/javahometech/javahome-app
+        dest: /var/www/html/

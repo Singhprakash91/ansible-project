@@ -3,9 +3,27 @@
   become: True
   serial: 
   - 1
-  - 2
+  - "20%"
   tasks:
     - name: Install Git
-      yum:
-        name: git
-        state: present
+      debug:
+        msg: Installing Git
+      tags:
+        - install
+    - name: Setup Environment
+      debug:
+        msg: Environment Setup
+      tags:
+        - Setup
+    - name: Configuration 
+      debug:
+        msg: System Configuration
+      tags:
+        - config
+    - name: Deploy to Server
+      debug:
+        msg: Deploying to the Server
+      tags:
+        - deploy
+
+
